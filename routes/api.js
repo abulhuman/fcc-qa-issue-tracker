@@ -33,7 +33,9 @@ const getIssuesByProject = async (project) => {
     const data = doc.data();
     const customData = {
       _id: data.id,
-      ...data
+      ...data,
+      created_on: data.created_on.toDate(),
+      updated_on: data.updated_on.toDate()
     };
     delete customData.id;
     issues.push({ ...customData });
