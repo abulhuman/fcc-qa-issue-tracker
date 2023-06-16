@@ -113,13 +113,13 @@ suite('Functional Tests', function () {
     openRequest
       .put('/api/issues/test')
       .send({
-        _id: '2jt90YrZ3AKfJdz6S7UA',
+        _id: '1bx1HlYr3AYjkNSDjuIj',
         issue_title: 'Title#2Updated'
       })
       .end(function (err, res) {
         assert.equal(res.status, 200);
         assert.equal(res.body.result, 'successfully updated');
-        assert.equal(res.body._id, '2jt90YrZ3AKfJdz6S7UA');
+        assert.equal(res.body._id, '1bx1HlYr3AYjkNSDjuIj');
         done();
       });
   });
@@ -129,7 +129,7 @@ suite('Functional Tests', function () {
     openRequest
       .put('/api/issues/test')
       .send({
-        _id: '2jt90YrZ3AKfJdz6S7UA',
+        _id: '1bx1HlYr3AYjkNSDjuIj',
         issue_title: 'Title#2Updated#2',
         issue_text: 'text#2Updated',
         created_by: 'Chai and Mocha',
@@ -140,7 +140,7 @@ suite('Functional Tests', function () {
       .end(function (err, res) {
         assert.equal(res.status, 200);
         assert.equal(res.body.result, 'successfully updated');
-        assert.equal(res.body._id, '2jt90YrZ3AKfJdz6S7UA');
+        assert.equal(res.body._id, '1bx1HlYr3AYjkNSDjuIj');
         done();
       });
   });
@@ -170,7 +170,7 @@ suite('Functional Tests', function () {
     openRequest
       .put('/api/issues/test')
       .send({
-        _id: '2jt90YrZ3AKfJdz6S7UA'
+        _id: '1bx1HlYr3AYjkNSDjuIj'
       })
       .end(function (err, res) {
         // assert.equal(res.status, 400);
@@ -185,7 +185,7 @@ suite('Functional Tests', function () {
     openRequest
       .put('/api/issues/test')
       .send({
-        _id: '2jt90YrZ3AKfJdz6S7UAInvalid',
+        _id: '1bx1HlYr3AYjkNSDjuIjInvalid',
         issue_title: 'Title#2Updated#2',
         issue_text: 'text#2Updated',
         created_by: 'Chai and Mocha',

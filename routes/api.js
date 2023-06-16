@@ -32,11 +32,13 @@ const getIssuesByProject = async (project) => {
   const issues = [];
   querySnapshot.forEach((doc) => {
     const data = doc.data();
+    const { created_on, updated_on } = data;
     const customData = {
       _id: data.id,
       ...data,
-      created_on: data.created_on.toDate(),
-      updated_on: data.updated_on.toDate()
+      created_on:
+        typeof created_on === 'string' ? created_on : created_on.toDate(),
+      updated_on: typeof updated_on === 'string' ? updated_on : updated_on.toDate()
     };
     delete customData.id;
     issues.push({ ...customData });
@@ -189,7 +191,8 @@ module.exports = function (app) {
       try {
         const docRef = doc(db, 'issues', _id);
         await updateDoc(docRef, {
-          ...req.body
+          ...req.body,
+          updated_on: new Date()
         });
         res.json({
           result: 'successfully updated',
