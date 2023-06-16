@@ -10,7 +10,8 @@ const {
   query,
   where,
   updateDoc,
-  deleteDoc
+  deleteDoc,
+  setDoc
 } = require('firebase/firestore');
 
 const getIssueById = async (id) => {
@@ -126,8 +127,11 @@ module.exports = function (app) {
       const { issue_title, issue_text, created_by, assigned_to, status_text } =
         req.body;
       try {
-        const docRef = await addDoc(collection(db, 'issues'), {
-          id: req.body?._id ?? '',
+
+        const newIssueRef = doc(collection(db, 'issues'));
+
+        await setDoc(newIssueRef, {
+          id: req.body?._id ?? newIssueRef.id,
           issue_title,
           issue_text,
           created_by,
@@ -140,7 +144,7 @@ module.exports = function (app) {
         });
 
         const { id, created_on, updated_on, open } = await getIssueById(
-          docRef.id
+          newIssueRef.id
         );
         res.json({
           _id: id,
