@@ -128,7 +128,6 @@ module.exports = function (app) {
       const { issue_title, issue_text, created_by, assigned_to, status_text } =
         req.body;
       try {
-
         const newIssueRef = doc(collection(db, 'issues'));
 
         await setDoc(newIssueRef, {
@@ -200,7 +199,7 @@ module.exports = function (app) {
         const isNotFound = error?.code === 'not-found';
         console.log(isNotFound ? 'Issue not found' : 'could not update', _id);
         // res.status(isNotFound ? 404 : 400).json({
-          res.json({
+        res.json({
           error: isNotFound ? 'Issue not found' : 'could not update',
           _id
         });
@@ -209,12 +208,14 @@ module.exports = function (app) {
 
     .delete(async (req, res) => {
       if (!req.body._id) {
-        res.status(400).json({ error: 'missing _id' });
+        // res.status(400).json({ error: 'missing _id' });
+        res.json({ error: 'missing _id' });
         return;
       }
       const { _id } = req.body;
       if (!isValidFirebaseId(_id)) {
-        res.status(400).json({ error: 'could not delete', _id });
+        // res.status(400).json({ error: 'could not delete', _id });
+        res.json({ error: 'could not delete', _id });
         return;
       }
       try {
@@ -226,7 +227,8 @@ module.exports = function (app) {
         });
       } catch (error) {
         console.log('could not delete', _id);
-        res.status(400).json({
+        // res.status(400).json({
+        res.json({
           error: 'could not delete',
           _id
         });
