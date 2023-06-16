@@ -121,7 +121,8 @@ module.exports = function (app) {
         !req.body.issue_text ||
         !req.body.created_by
       ) {
-        res.status(400).json({ error: 'required field(s) missing' });
+        // res.status(400).json({ error: 'required field(s) missing' });
+        res.status(200).json({ error: 'required field(s) missing' });
         return;
       }
       const { issue_title, issue_text, created_by, assigned_to, status_text } =
@@ -165,12 +166,14 @@ module.exports = function (app) {
 
     .put(async (req, res) => {
       if (!req.body._id) {
-        res.status(400).json({ error: 'missing _id' });
+        // res.status(400).json({ error: 'missing _id' });
+        res.status(200).json({ error: 'missing _id' });
         return;
       }
       const { _id } = req.body;
       if (!isValidFirebaseId(_id)) {
-        res.status(400).json({ error: 'could not update', _id });
+        // res.status(400).json({ error: 'could not update', _id });
+        res.status(200).json({ error: 'could not update', _id });
         return;
       }
       if (
@@ -181,7 +184,7 @@ module.exports = function (app) {
         !req.body.status_text &&
         !req.body.open
       ) {
-        res.status(400).json({ error: 'no update field(s) sent', _id });
+        res.status(200).json({ error: 'no update field(s) sent', _id });
         return;
       }
       try {
@@ -196,7 +199,8 @@ module.exports = function (app) {
       } catch (error) {
         const isNotFound = error?.code === 'not-found';
         console.log(isNotFound ? 'Issue not found' : 'could not update', _id);
-        res.status(isNotFound ? 404 : 400).json({
+        // res.status(isNotFound ? 404 : 400).json({
+          res.json({
           error: isNotFound ? 'Issue not found' : 'could not update',
           _id
         });
