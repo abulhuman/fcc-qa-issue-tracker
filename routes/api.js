@@ -174,11 +174,6 @@ module.exports = function (app) {
         return;
       }
       const { _id } = req.body;
-      if (!isValidFirebaseId(_id)) {
-        // res.status(400).json({ error: 'could not update', _id });
-        res.status(200).json({ error: 'could not update', _id });
-        return;
-      }
       if (
         !req.body.issue_title &&
         !req.body.issue_text &&
@@ -188,6 +183,11 @@ module.exports = function (app) {
         !req.body.open
       ) {
         res.status(200).json({ error: 'no update field(s) sent', _id });
+        return;
+      }
+      if (!isValidFirebaseId(_id)) {
+        // res.status(400).json({ error: 'could not update', _id });
+        res.status(200).json({ error: 'could not update', _id });
         return;
       }
       try {
