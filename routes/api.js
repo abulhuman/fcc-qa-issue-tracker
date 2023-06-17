@@ -14,6 +14,8 @@ const {
   setDoc
 } = require('firebase/firestore');
 
+const { isFirebasePushId }  = require('class-validator')
+
 const getIssueById = async (id) => {
   const docRef = doc(db, 'issues', id);
   const docSnap = await getDoc(docRef);
@@ -48,8 +50,7 @@ const getIssuesByProject = async (project) => {
 };
 
 const isValidFirebaseId = (id) => {
-  const regex = /^[^/\.#$\[\]]{1,20}$/; // 1-20 characters, no / . # $ [ ]
-  return regex.test(id);
+  return isFirebasePushId(id);
 };
 
 module.exports = function (app) {
