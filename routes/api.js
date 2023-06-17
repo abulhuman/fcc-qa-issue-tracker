@@ -38,7 +38,8 @@ const getIssuesByProject = async (project) => {
       ...data,
       created_on:
         typeof created_on === 'string' ? created_on : created_on.toDate(),
-      updated_on: typeof updated_on === 'string' ? updated_on : updated_on.toDate()
+      updated_on:
+        typeof updated_on === 'string' ? updated_on : updated_on.toDate()
     };
     delete customData.id;
     issues.push({ ...customData });
@@ -200,6 +201,7 @@ module.exports = function (app) {
         });
       } catch (error) {
         const isNotFound = error?.code === 'not-found';
+        console.log('PUT ERROR: ', error);
         console.log(isNotFound ? 'Issue not found' : 'could not update', _id);
         // res.status(isNotFound ? 404 : 400).json({
         res.json({
